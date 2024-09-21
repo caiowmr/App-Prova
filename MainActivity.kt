@@ -15,13 +15,17 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent{
+        setContent {
             val navController = rememberNavController()
-            NavHost(navController = navController, startDestination = "cadastro_produto") {
+            NavHost(navController = navController, startDestination = "main_menu") {
+                composable("main_menu") { MainMenuScreen(navController) }
                 composable("cadastro_produto") { CadastroProdutoScreen(navController) }
                 composable("lista_produtos") { ListaProdutosScreen(navController) }
                 composable("detalhes_produto/{produtoNome}") { backStackEntry ->
-                    DetalhesProdutoScreen(navController, backStackEntry.arguments?.getString("produtoNome") ?: "")
+                    DetalhesProdutoScreen(
+                        navController,
+                        backStackEntry.arguments?.getString("produtoNome") ?: ""
+                    )
                 }
                 composable("estatisticas") { EstatisticasScreen(navController) }
             }
